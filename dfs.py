@@ -7,7 +7,7 @@ def DFSVisit(G: Graph, u: Vertex) -> None:
     u.d = G.tick
     u.color = Color.GRAY
     for v in G.Adj(u):
-        if v.color == Color.WHITE:
+        if v.WasVisited():
             v.p = u
             DFSVisit(G, v)
     u.color = Color.BLACK
@@ -16,12 +16,12 @@ def DFSVisit(G: Graph, u: Vertex) -> None:
 
 def DFS(matrix: AdjMatrix) -> Graph:
     G = Graph(adjMatrix=matrix)
-    for v in G.vertices.values():
+    for v in G.V.values():
         v.color = Color.WHITE
         v.p = None
     G.tick = 0
-    for u in G.vertices.values():
-        if u.color == Color.WHITE:
+    for u in G.V.values():
+        if u.WasVisited():
             DFSVisit(G, u)
 
     return G
